@@ -1,0 +1,35 @@
+class Solution {
+    public int shipWithinDays(int[] weights, int days) {
+        int left=0;
+        int right=0;
+        for (int i=0;i<weights.length;i++) {
+            left = Math.max(left, weights[i]); 
+            right+=weights[i];
+        }
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (find(weights, days, mid)) {
+                right = mid; 
+            } 
+            else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+    public boolean find(int[] weights, int days, int capacity) {
+        int count = 1;
+        int curr = 0;
+        for (int weight : weights) {
+            if (curr + weight > capacity) {
+                count++;
+                curr = 0;
+            }
+            curr += weight;
+            if (count > days) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
