@@ -1,0 +1,24 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String>result=new ArrayList<>();
+        String ans="";
+        parantheses(n,0,0,ans,result);
+        return result;
+    }
+    public static void  parantheses(int n,int open,int close,String ans,List<String>result)
+    {
+        if(open==n && close==n)
+        {
+            result.add(ans);
+            return;
+        }
+        if(open<n)
+        {
+             parantheses(n,open+1,close,ans+"(",result);
+        }
+        if(close<open)
+        {
+            parantheses(n,open,close+1,ans+")",result);
+        }
+    }
+}
